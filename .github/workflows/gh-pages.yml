@@ -3,7 +3,7 @@ name: generate cheat-sheet mdbook
 on:
   push:
     branches:
-      -main
+      - main
 
 jobs:
   deploy:
