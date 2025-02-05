@@ -158,8 +158,11 @@
 <h2 id="host"><a class="header" href="#host">host</a></h2>
 <pre><code class="language-shell">host -l &lt;domain&gt; &lt;dns-server&gt;
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="name-server-detection"><a class="header" href="#name-server-detection">Name Server detection</a></h1>
 <h2 id="dig"><a class="header" href="#dig">dig</a></h2>
+<pre><code class="language-shell">dig axfr &lt;domain&gt; @&lt;dns-server&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="name-server-detection"><a class="header" href="#name-server-detection">Name Server detection</a></h1>
+<h2 id="dig-1"><a class="header" href="#dig-1">dig</a></h2>
 <pre><code class="language-bash">dig ns &lt;domain&gt; +short
 </code></pre>
 <h2 id="host-1"><a class="header" href="#host-1">host</a></h2>
