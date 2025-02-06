@@ -2,7 +2,7 @@
 
 ## List of modules
 ```c
-lsmode
+lsmod 
 ```
 
 ## Getting info
