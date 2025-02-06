@@ -6,17 +6,17 @@ lsmod
 ```
 
 ## Getting info
-```shell
+```sh
 modinfo <modules>
 ```
 
 
 ## Inserting a module
-```shell
+```bash
 insmod <module> [params]
 ```
 
-```shell
+```bash
 modprobe -a <module> [params]
 ```
 
@@ -24,7 +24,7 @@ modprobe -a <module> [params]
 Shamelessly plundered from [this course](https://largo.lip6.fr/trac/sesi-peri). 
 It's meant to be used for driver modules. 
 Inserts a module and creates an associated file in `/dev`
-```shell
+```bash
 #!/bin/sh
 # insdev <module> [params]
 module=$1
@@ -37,11 +37,11 @@ chmod 666 /dev/$module
 ```
 
 ## Removing a module
-```shell
+```bash
 rmmod
 ```
 
-```shell
+```bash
 modprobe -r <module> [params]
 ```
 
@@ -50,7 +50,7 @@ Shamelessly plundered from [this course](https://largo.lip6.fr/trac/sesi-peri).
 It's meant to be used for driver modules. 
 Removes a module but also deletes the associated file in `/dev`
 
-```shell
+```bash
 #!/bin/sh
 # rmdev <module>
 module=$1
@@ -59,7 +59,7 @@ rm -f /dev/$module
 ```
 
 ## Make a block o char file
-```shell
+```bash
 mknod /dev/<name> <type> <major> <minor>
 ```
 

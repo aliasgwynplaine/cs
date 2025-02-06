@@ -1,10 +1,10 @@
 # DNS Zone Transfer
 
 ## host
-```shell
+```bash
 host -l <domain> <dns-server>
 ```
 ## dig
-```shell
+```bash
 dig axfr <domain> @<dns-server>
 ```

@@ -6,6 +6,6 @@ dig ns <domain> +short
 ```
 
 ## host
-```shell
+```bash
 host -t ns <domain>
 ```
