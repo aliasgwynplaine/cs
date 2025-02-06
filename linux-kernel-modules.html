@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Web Security - cheat-sheet</title>
+        <title>Modules - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -152,19 +152,37 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="web-security"><a class="header" href="#web-security">Web Security</a></h1>
+                        <h1 id="linux-kernel-modules"><a class="header" href="#linux-kernel-modules">Linux Kernel Modules</a></h1>
+<h2 id="list-of-modules"><a class="header" href="#list-of-modules">List of modules</a></h2>
+<pre><code class="language-c">lsmode
+</code></pre>
+<h2 id="getting-info"><a class="header" href="#getting-info">Getting info</a></h2>
+<pre><code class="language-shell">modinfo &lt;modules&gt;
+</code></pre>
+<h2 id="inserting-a-module"><a class="header" href="#inserting-a-module">Inserting a module</a></h2>
+<pre><code class="language-shell">insmod &lt;module&gt; [params]
+</code></pre>
+<pre><code class="language-shell">modprobe -a &lt;module&gt; [params]
+</code></pre>
+<h2 id="removing-a-module"><a class="header" href="#removing-a-module">Removing a module</a></h2>
+<pre><code class="language-shell">rmmod
+</code></pre>
+<pre><code class="language-shell">modprobe -r &lt;module&gt; [params]
+</code></pre>
+<h2 id="make-a-block-o-char-file"><a class="header" href="#make-a-block-o-char-file">Make a block o char file</a></h2>
+<pre><code class="language-shell">mknod /dev/&lt;name&gt; &lt;type&gt; &lt;major&gt; &lt;minor&gt;
+</code></pre>
+<h2 id="modules-loaded-at-boot-time"><a class="header" href="#modules-loaded-at-boot-time">Modules loaded at boot time</a></h2>
+<p>You can find the list in <code>/etc/modules</code>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="about.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="linux-kernel.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="recon.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -172,13 +190,10 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="about.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="linux-kernel.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="recon.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
