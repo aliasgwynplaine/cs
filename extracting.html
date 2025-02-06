@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>DNS Zone Transfer - cheat-sheet</title>
+        <title>Extracting - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -152,23 +152,30 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="dns-zone-transfer"><a class="header" href="#dns-zone-transfer">DNS Zone Transfer</a></h1>
-<h2 id="host"><a class="header" href="#host">host</a></h2>
-<pre><code class="language-bash">host -l &lt;domain&gt; &lt;dns-server&gt;
+                        <h1 id="compressing--estracting"><a class="header" href="#compressing--estracting">Compressing &amp; estracting</a></h1>
+<h2 id="tgz"><a class="header" href="#tgz">.tgz</a></h2>
+<pre><code class="language-bash">tar zxvf &lt;file-tgz&gt;
 </code></pre>
-<h2 id="dig"><a class="header" href="#dig">dig</a></h2>
-<pre><code class="language-bash">dig axfr &lt;domain&gt; @&lt;dns-server&gt;
+<pre><code class="language-bash">gunzip -c &lt;file-tgz&gt; | tar xvf -
+</code></pre>
+<h2 id="xz"><a class="header" href="#xz">.xz</a></h2>
+<pre><code class="language-bash">tar xf &lt;file-xz&gt;
+</code></pre>
+<h2 id="zip"><a class="header" href="#zip">.zip</a></h2>
+<pre><code>zip -r &lt;filename-zip&gt; &lt;dirname&gt;
+</code></pre>
+<pre><code class="language-bash">unzip &lt;file-zip&gt;
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="name-server-detection.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="linux-kernel-modules.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="openssl.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="mounting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -178,11 +185,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="name-server-detection.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="linux-kernel-modules.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="openssl.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="mounting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
