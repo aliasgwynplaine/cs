@@ -9,6 +9,11 @@ tar zxvf <file-tgz>
 gunzip -c <file-tgz> | tar xvf -
 ```
 
+## .tg.bz2
+```bash
+tar xvjf <file-tar.bz2>
+```
+
 ## .xz
 ```bash
 tar xf <file-xz>
