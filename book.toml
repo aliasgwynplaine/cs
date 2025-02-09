@@ -4,3 +4,5 @@ language = "en"
 multilingual = false
 src = "src"
 title = "cheat-sheet"
+[output.html]
+cname = cs.xn--ida.live
