@@ -15,3 +15,8 @@ whatweb <url>
 ```bash
 waybackurls <url>
 ```
+
+## gau
+```bash
+gau
+```
