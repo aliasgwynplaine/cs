@@ -16,4 +16,8 @@
         -[API](linux-kernel-mod-api.md)
 - [Extracting](extracting.md)
 - [Mounting](mounting.md)
+- [Formatting](formatting.md)
+- [Paritions](partitions.md)
+- [qemu](qemu.md)
+
 
