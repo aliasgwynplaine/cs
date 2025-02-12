@@ -6,10 +6,9 @@ lsmod
 ```
 
 ## Getting info
-```sh
+```bash
 modinfo <modules>
 ```
-
 
 ## Inserting a module
 ```bash

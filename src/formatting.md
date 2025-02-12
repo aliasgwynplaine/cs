@@ -2,5 +2,7 @@
 
 ## Linux
 ```bash
-
+fdisk
 ```
+
+## Windows
