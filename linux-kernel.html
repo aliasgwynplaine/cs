@@ -153,6 +153,34 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="linux-kernel"><a class="header" href="#linux-kernel">Linux Kernel</a></h1>
+<h2 id="getting-the-sources"><a class="header" href="#getting-the-sources">Getting the sources</a></h2>
+<p>https://cdn.kernel.org</p>
+<ol>
+<li>Télécharger</li>
+<li>Vérifier la signature avec <code>gpg --verify</code></li>
+</ol>
+<h2 id="configuring-the-kernel"><a class="header" href="#configuring-the-kernel">Configuring the kernel</a></h2>
+<p><code>.config</code> dans <code>/boot/</code>
+<code>/boot/config-$(uname -r).config</code></p>
+<h2 id="building-the-kernel"><a class="header" href="#building-the-kernel">Building the kernel</a></h2>
+<pre><code class="language-bash">make -j $(nproc)
+</code></pre>
+<p>la compilation produce les programmes suivants:</p>
+<ul>
+<li><code>vmlinux</code> : raw image</li>
+<li><code>System.map</code> : symbol table. used for debugging.</li>
+<li><code>arch/&lt;arch&gt;/boot/bzImage</code> : compressed image</li>
+</ul>
+<h2 id="linux-init-process"><a class="header" href="#linux-init-process">Linux init process</a></h2>
+<p>sequence de démarrage de linux: initramfs</p>
+<h2 id="printing"><a class="header" href="#printing">Printing</a></h2>
+<p>printk-formats.txt</p>
+<p><code>printk()</code> -&gt; kernel ring buffer that can be read with <code>dmesg</code></p>
+<ul>
+<li><code>pr_debug()</code></li>
+<li><code>pr_info()</code></li>
+<li><code>pr_err()</code></li>
+</ul>
 
                     </main>
 

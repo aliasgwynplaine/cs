@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>cheat-sheet</title>
-        <meta name="robots" content="noindex">
+        <title>API - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -153,126 +152,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="about"><a class="header" href="#about">about</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="web-security"><a class="header" href="#web-security">Web Security</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="security-headers"><a class="header" href="#security-headers">Security Headers</a></h1>
-<h2 id="sslscan"><a class="header" href="#sslscan">sslscan</a></h2>
-<pre><code class="language-bash">sslscan &lt;url&gt;
-</code></pre>
-<h2 id="curl"><a class="header" href="#curl">curl</a></h2>
-<pre><code class="language-bash">curl &lt;endpoint&gt; -D-
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="recon"><a class="header" href="#recon">Recon</a></h1>
-<h2 id="nuclei"><a class="header" href="#nuclei">nuclei</a></h2>
-<pre><code class="language-bash">nuclei -u &lt;url&gt;
-</code></pre>
-<h2 id="whatweb"><a class="header" href="#whatweb">whatweb</a></h2>
-<pre><code class="language-bash">whatweb &lt;url&gt;
-</code></pre>
-<h2 id="waybackurls"><a class="header" href="#waybackurls">waybackurls</a></h2>
-<pre><code class="language-bash">waybackurls &lt;url&gt;
-</code></pre>
-<h2 id="gau"><a class="header" href="#gau">gau</a></h2>
-<pre><code class="language-bash">gau
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="enumeration"><a class="header" href="#enumeration">Enumeration</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="folders"><a class="header" href="#folders">Folders</a></h1>
-<h2 id="fuzzers"><a class="header" href="#fuzzers">Fuzzers</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="name-server-detection"><a class="header" href="#name-server-detection">Name Server detection</a></h1>
-<h2 id="dig"><a class="header" href="#dig">dig</a></h2>
-<pre><code class="language-bash">dig ns &lt;domain&gt; +short
-</code></pre>
-<h2 id="host"><a class="header" href="#host">host</a></h2>
-<pre><code class="language-bash">host -t ns &lt;domain&gt;
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="dns-zone-transfer"><a class="header" href="#dns-zone-transfer">DNS Zone Transfer</a></h1>
-<h2 id="host-1"><a class="header" href="#host-1">host</a></h2>
-<pre><code class="language-bash">host -l &lt;domain&gt; &lt;dns-server&gt;
-</code></pre>
-<h2 id="dig-1"><a class="header" href="#dig-1">dig</a></h2>
-<pre><code class="language-bash">dig axfr &lt;domain&gt; @&lt;dns-server&gt;
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="openssl"><a class="header" href="#openssl">OpenSSL</a></h1>
-<h2 id="x509"><a class="header" href="#x509">x509</a></h2>
-<h2 id="certificates"><a class="header" href="#certificates">Certificates</a></h2>
-<h2 id="certificate-requests"><a class="header" href="#certificate-requests">Certificate requests</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="post-exploitation"><a class="header" href="#post-exploitation">Post-Exploitation</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="linux-kernel"><a class="header" href="#linux-kernel">Linux Kernel</a></h1>
-<h2 id="getting-the-sources"><a class="header" href="#getting-the-sources">Getting the sources</a></h2>
-<p>https://cdn.kernel.org</p>
-<ol>
-<li>Télécharger</li>
-<li>Vérifier la signature avec <code>gpg --verify</code></li>
-</ol>
-<h2 id="configuring-the-kernel"><a class="header" href="#configuring-the-kernel">Configuring the kernel</a></h2>
-<p><code>.config</code> dans <code>/boot/</code>
-<code>/boot/config-$(uname -r).config</code></p>
-<h2 id="building-the-kernel"><a class="header" href="#building-the-kernel">Building the kernel</a></h2>
-<pre><code class="language-bash">make -j $(nproc)
-</code></pre>
-<p>la compilation produce les programmes suivants:</p>
-<ul>
-<li><code>vmlinux</code> : raw image</li>
-<li><code>System.map</code> : symbol table. used for debugging.</li>
-<li><code>arch/&lt;arch&gt;/boot/bzImage</code> : compressed image</li>
-</ul>
-<h2 id="linux-init-process"><a class="header" href="#linux-init-process">Linux init process</a></h2>
-<p>sequence de démarrage de linux: initramfs</p>
-<h2 id="printing"><a class="header" href="#printing">Printing</a></h2>
-<p>printk-formats.txt</p>
-<p><code>printk()</code> -&gt; kernel ring buffer that can be read with <code>dmesg</code></p>
-<ul>
-<li><code>pr_debug()</code></li>
-<li><code>pr_info()</code></li>
-<li><code>pr_err()</code></li>
-</ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="linux-kernel-modules"><a class="header" href="#linux-kernel-modules">Linux Kernel Modules</a></h1>
-<h2 id="list-of-modules"><a class="header" href="#list-of-modules">List of modules</a></h2>
-<pre><code class="language-c">lsmod 
-</code></pre>
-<h2 id="getting-info"><a class="header" href="#getting-info">Getting info</a></h2>
-<pre><code class="language-bash">modinfo &lt;modules&gt;
-</code></pre>
-<h2 id="inserting-a-module"><a class="header" href="#inserting-a-module">Inserting a module</a></h2>
-<pre><code class="language-bash">insmod &lt;module&gt; [params]
-</code></pre>
-<pre><code class="language-bash">modprobe -a &lt;module&gt; [params]
-</code></pre>
-<h3 id="insdev"><a class="header" href="#insdev"><code>insdev</code></a></h3>
-<p>Shamelessly plundered from <a href="https://largo.lip6.fr/trac/sesi-peri">this course</a>.
-It's meant to be used for driver modules.
-Inserts a module and creates an associated file in <code>/dev</code></p>
-<pre><code class="language-bash">#!/bin/sh
-# insdev &lt;module&gt; [params]
-module=$1
-shift
-/sbin/insmod ./$module.ko $* || exit 1
-rm -f /dev/$module
-major=$(awk "\$2==\"$module\" {print \$1}" /proc/devices)
-mknod /dev/$module c $major 0
-chmod 666 /dev/$module
-</code></pre>
-<h2 id="removing-a-module"><a class="header" href="#removing-a-module">Removing a module</a></h2>
-<pre><code class="language-bash">rmmod
-</code></pre>
-<pre><code class="language-bash">modprobe -r &lt;module&gt; [params]
-</code></pre>
-<h3 id="rmdev"><a class="header" href="#rmdev"><code>rmdev</code></a></h3>
-<p>Shamelessly plundered from <a href="https://largo.lip6.fr/trac/sesi-peri">this course</a>.
-It's meant to be used for driver modules.
-Removes a module but also deletes the associated file in <code>/dev</code></p>
-<pre><code class="language-bash">#!/bin/sh
-# rmdev &lt;module&gt;
-module=$1
-/sbin/rmmod $module || exit 1
-rm -f /dev/$module 
-</code></pre>
-<h2 id="make-a-block-o-char-file"><a class="header" href="#make-a-block-o-char-file">Make a block o char file</a></h2>
-<pre><code class="language-bash">mknod /dev/&lt;name&gt; &lt;type&gt; &lt;major&gt; &lt;minor&gt;
-</code></pre>
-<h2 id="modules-loaded-at-boot-time"><a class="header" href="#modules-loaded-at-boot-time">Modules loaded at boot time</a></h2>
-<p>You can find the list in <code>/etc/modules</code>.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="api"><a class="header" href="#api">API</a></h1>
+                        <h1 id="api"><a class="header" href="#api">API</a></h1>
 <h2 id="macros"><a class="header" href="#macros">macros</a></h2>
 <h2 id="some-headers"><a class="header" href="#some-headers">some headers</a></h2>
 <pre><code class="language-c">#include &lt;linux/module.h&gt;
@@ -296,46 +176,18 @@ int register_chrdev( unsigned char major, const char *name,
 void unregister_chrdev( unsigned int major, const char *name);
 
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="compressing--estracting"><a class="header" href="#compressing--estracting">Compressing &amp; estracting</a></h1>
-<h2 id="tgz"><a class="header" href="#tgz">.tgz</a></h2>
-<pre><code class="language-bash">tar zxvf &lt;file-tgz&gt;
-</code></pre>
-<pre><code class="language-bash">gunzip -c &lt;file-tgz&gt; | tar xvf -
-</code></pre>
-<h2 id="tgbz2"><a class="header" href="#tgbz2">.tg.bz2</a></h2>
-<pre><code class="language-bash">tar xvjf &lt;file-tar.bz2&gt;
-</code></pre>
-<h2 id="xz"><a class="header" href="#xz">.xz</a></h2>
-<pre><code class="language-bash">tar xf &lt;file-xz&gt;
-</code></pre>
-<h2 id="zip"><a class="header" href="#zip">.zip</a></h2>
-<pre><code>zip -r &lt;filename-zip&gt; &lt;dirname&gt;
-</code></pre>
-<pre><code class="language-bash">unzip &lt;file-zip&gt;
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="mounting"><a class="header" href="#mounting">Mounting</a></h1>
-<h2 id="img"><a class="header" href="#img">.img</a></h2>
-<pre><code class="language-bash">mount -o loop &lt;file.img&gt; &lt;mntpoints&gt;
-</code></pre>
-<h2 id="dev"><a class="header" href="#dev">/dev/*</a></h2>
-<p>You can use <code>fdisk -l</code> to check the partition type</p>
-<pre><code class="language-bash">mount -t &lt;type&gt; /dev/&lt;sd&gt;  &lt;targetfolder&gt;
-</code></pre>
-<h2 id="umouting"><a class="header" href="#umouting">umouting</a></h2>
-<pre><code class="language-bash">umount &lt;mntpoint&gt;
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="formatting"><a class="header" href="#formatting">Formatting</a></h1>
-<h2 id="linux"><a class="header" href="#linux">Linux</a></h2>
-<pre><code class="language-bash">fdisk
-</code></pre>
-<h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="linux-kernel-modules.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
+                            <a rel="next prefetch" href="extracting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -343,7 +195,13 @@ void unregister_chrdev( unsigned int major, const char *name);
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="linux-kernel-modules.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
+                    <a rel="next prefetch" href="extracting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -366,11 +224,6 @@ void unregister_chrdev( unsigned int major, const char *name);
 
         <!-- Custom JS scripts -->
 
-        <script>
-        window.addEventListener('load', function() {
-            window.setTimeout(window.print, 100);
-        });
-        </script>
 
     </div>
     </body>
