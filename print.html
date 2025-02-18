@@ -273,15 +273,30 @@ rm -f /dev/$module
 <h2 id="modules-loaded-at-boot-time"><a class="header" href="#modules-loaded-at-boot-time">Modules loaded at boot time</a></h2>
 <p>You can find the list in <code>/etc/modules</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="api"><a class="header" href="#api">API</a></h1>
-<h2 id="macros"><a class="header" href="#macros">macros</a></h2>
 <h2 id="some-headers"><a class="header" href="#some-headers">some headers</a></h2>
 <pre><code class="language-c">#include &lt;linux/module.h&gt;
 #include &lt;linux/init.h&gt;
 #include &lt;linux/kernel.h&gt;
 #include &lt;linux/moduleparam.h&gt;
+#include &lt;linux/slab.h&gt;
 </code></pre>
 <h3 id="getting-arguments-from-shell-at-loading"><a class="header" href="#getting-arguments-from-shell-at-loading">getting arguments from shell at loading</a></h3>
-<pre><code class="language-c">module_param(param, type, permissions)
+<pre><code class="language-c">static short int myshort = 1;
+static int myint = 420;
+static long int mylong = 9999;
+static char *mystring = "blah";
+static int myintArray[2] = { -1, -1 };
+static int arr_argc = 0;
+
+module_param(myshort, short, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
+MODULE_PARM_DESC(myshort, "A short integer");
+module_param(myint, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+MODULE_PARM_DESC(myint, "An integer");
+module_param(mylong, long, S_IRUSR);
+MODULE_PARM_DESC(mylong, "A long integer");
+module_param(mystring, charp, 0000);
+MODULE_PARM_DESC(mystring, "A character string");
+
 </code></pre>
 <h3 id="putting-module-information"><a class="header" href="#putting-module-information">putting module information</a></h3>
 <pre><code class="language-c">MODULE_DESCRIPTION("description")
@@ -330,6 +345,12 @@ void unregister_chrdev( unsigned int major, const char *name);
 </code></pre>
 <h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
+<h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
+<pre><code class="language-bash">qemu-img create -f vmdk &lt;superdisk.img&gt; &lt;size&gt;
+</code></pre>
+<h2 id="qemu-with-nat"><a class="header" href="#qemu-with-nat">qemu with NAT</a></h2>
+<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom &lt;isopath&gt; &lt;disk-img&gt;
+</code></pre>
 
                     </main>
 
