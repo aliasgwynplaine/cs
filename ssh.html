@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Folders - cheat-sheet</title>
+        <title>SSH - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -152,18 +152,33 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="folders"><a class="header" href="#folders">Folders</a></h1>
-<h2 id="fuzzers"><a class="header" href="#fuzzers">Fuzzers</a></h2>
+                        <h1 id="ssh"><a class="header" href="#ssh">SSH</a></h1>
+<h2 id="local-port-forwarding"><a class="header" href="#local-port-forwarding">Local port forwarding</a></h2>
+<pre><code class="language-bash">ssh -L $lport:$dhost:$dport $user@$sshserver
+
+</code></pre>
+<h2 id="remote-port-forwarding"><a class="header" href="#remote-port-forwarding">Remote port forwarding</a></h2>
+<pre><code class="language-bash">ssh -R $rport:$dhost:$lport $user@$sshserver
+
+</code></pre>
+<pre><code>B:1 -&gt; A:2 &lt;- C:3  &lt;---&gt; internet
+</code></pre>
+<blockquote>
+<p>NOTE: this option can be useless if you have no root access to change the <code>sshd_config</code> file in the machine <code>A</code>, and restart the ssh service, since you need to set <code>GatewayPorts yes</code> in order to let others than the ssh server machine could access to <code>dhost</code>. However, there's a workaround: Remote Port Forwarding from <code>B:port1</code> to one remote server <code>A:port2</code> and then a Local Port Forwarding to the same <code>A:port2</code> machine using a local machine <code>C:port3</code> to which you have more access. You can know access to the service in <code>B:port1</code> using <code>C:port3</code>.</p>
+</blockquote>
+<h2 id="dynamic-port-forwarding"><a class="header" href="#dynamic-port-forwarding">Dynamic port forwarding</a></h2>
+<pre><code class="language-bash">ssh -D $lport $user@$server
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="enum.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="port-forwarding.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="shellwerkz.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="dns-zone-transfer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -173,11 +188,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="enum.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="port-forwarding.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="shellwerkz.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="dns-zone-transfer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
