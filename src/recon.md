@@ -3,20 +3,20 @@
 ## nuclei
 
 ```bash
-nuclei -u <url>
+nuclei -u $url
 ```
 
 ## whatweb
 ```bash
-whatweb <url>
+whatweb $url
 ```
 
 ## waybackurls
 ```bash
-waybackurls <url>
+waybackurls $url
 ```
 
 ## gau
 ```bash
-gau
+gau $url
 ```

@@ -2,10 +2,10 @@
 
 ## sslscan
 ```bash
-sslscan <url>
+sslscan $url
 ```
 
 ## curl
 ```bash
-curl <endpoint> -D-
+curl $endpoint -D-
 ```

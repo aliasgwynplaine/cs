@@ -2,16 +2,16 @@
 
 ## .img
 ```bash
-mount -o loop <file.img> <mntpoints>
+mount -o loop $fileimg $mntpoint
 ```
 
 ## /dev/*
 You can use `fdisk -l` to check the partition type
 ```bash
-mount -t <type> /dev/<sd>  <targetfolder>
+mount -t $type /dev/$sd  $targetfolder
 ```
 
 ## umouting
 ```bash
-umount <mntpoint>
+umount $mntpoint
 ```

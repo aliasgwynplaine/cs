@@ -2,10 +2,10 @@
 
 ## dig
 ```bash
-dig ns <domain> +short
+dig ns $domain +short
 ```
 
 ## host
 ```bash
-host -t ns <domain>
+host -t ns $domain
 ```
