@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Security Headers - cheat-sheet</title>
+        <title>signals - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -152,23 +152,55 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="security-headers"><a class="header" href="#security-headers">Security Headers</a></h1>
-<h2 id="sslscan"><a class="header" href="#sslscan">sslscan</a></h2>
-<pre><code class="language-bash">sslscan $url
+                        <h1 id="signals"><a class="header" href="#signals">Signals</a></h1>
+<h2 id="c"><a class="header" href="#c">C</a></h2>
+<h3 id="setting-signal-handlers"><a class="header" href="#setting-signal-handlers">Setting signal handlers</a></h3>
+<p><code>handle_fux</code> is always of type <code>void (*) (int)</code>.</p>
+<pre><code class="language-c">struct sigaction sa;
+sa.sa_handler = handle_fux;
+sa.sa_flags = 0;
+sigemptyset(&amp;sa.sa_mask);
+sigaction(SIGINT, &amp;sa, NULL);
 </code></pre>
-<h2 id="curl"><a class="header" href="#curl">curl</a></h2>
-<pre><code class="language-bash">curl $endpoint -D-
+<pre><code class="language-c">signal(SIGINT, handler_fux)
+</code></pre>
+<h3 id="masking-signals"><a class="header" href="#masking-signals">Masking signals</a></h3>
+<pre><code class="language-c">/* Prototype for the glibc wrapper function */
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+</code></pre>
+<p>about <code>how</code>:</p>
+<p><strong>SIG_BLOCK</strong>. The set of blocked signals is the union of the current  set  and the set argument.</p>
+<p><strong>SIG_UNBLOCK</strong>. The  signals  in set are removed from the current set of blockedsignals. It is permissible to attempt to unblock a signal whichis not blocked.</p>
+<p><strong>SIG_SETMASK</strong>. The set of blocked signals is set to the argument set.</p>
+<pre><code class="language-c">sigset_t mask;
+sigemptyset(&amp;mask);
+sigaddset(&amp;mask, SIGINT);
+sigprocmask(SIG_BLOCK, &amp;mask, NULL);
+</code></pre>
+<h3 id="suspending-program-until-signal"><a class="header" href="#suspending-program-until-signal">Suspending program until signal</a></h3>
+<pre><code class="language-c">sigset_t negmask;
+sigfillset(&amp;negmask);
+sigdelset(&amp;negmask, SIGINT);
+sigsuspend(&amp;negmask);
+</code></pre>
+<h2 id="bash"><a class="header" href="#bash">Bash</a></h2>
+<pre><code class="language-bash">trap ctrl_c INT
+
+function ctrl_c () {
+    echo -e "\n\n[*] Quitting...\n"
+    exit
+}
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="web-security.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="semaphores.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="recon.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="openssl.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -178,11 +210,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="web-security.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="semaphores.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="recon.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="openssl.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

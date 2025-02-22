@@ -154,10 +154,10 @@
                     <main>
                         <h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
 <h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
-<pre><code class="language-bash">qemu-img create -f vmdk &lt;superdisk.img&gt; &lt;size&gt;
+<pre><code class="language-bash">qemu-img create -f vmdk $superdiskimg $size
 </code></pre>
 <h2 id="qemu-with-nat"><a class="header" href="#qemu-with-nat">qemu with NAT</a></h2>
-<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom &lt;isopath&gt; &lt;disk-img&gt;
+<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom $isopath $diskimg
 </code></pre>
 
                     </main>

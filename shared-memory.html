@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Security Headers - cheat-sheet</title>
+        <title>share memory - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -152,23 +152,73 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="security-headers"><a class="header" href="#security-headers">Security Headers</a></h1>
-<h2 id="sslscan"><a class="header" href="#sslscan">sslscan</a></h2>
-<pre><code class="language-bash">sslscan $url
+                        <h1 id="share-memory"><a class="header" href="#share-memory">Share memory</a></h1>
+<h2 id="creation"><a class="header" href="#creation">Creation</a></h2>
+<pre><code class="language-c">struct s sh;
+
+int fd = shm_open(name, O_CREAT|O_RDWR|O_TRUNC, mode);
+
+if (fd == -1) {
+    perror("shm_open");
+    exit(errno);
+}
+
+int f = ftruncate(fd, sizeof(*sh));
+
+if (f &lt; 0) {
+    perror("ftruncate");
+    close(fd);
+    exit(errno);
+}
+
+sh = mmap(0, sizeof(*sh), PROT_WRITE|PROT_READ, MAP_SHARED, fd, 0);
+close(fd);
+
+if (r == MAP_FAILED) {
+    perror("mmap");
+    exit(errno);
+}
+
 </code></pre>
-<h2 id="curl"><a class="header" href="#curl">curl</a></h2>
-<pre><code class="language-bash">curl $endpoint -D-
+<h2 id="open"><a class="header" href="#open">Open</a></h2>
+<pre><code class="language-c">int fd = shm_open(name, O_RDWR, 0666);
+
+if (fd &lt; -1) {
+    perror("shm_open");
+    return NULL;
+}
+
+struct s * shm = mmap(0, sizeof(*shm), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+
+if (shm == MAP_FAILED) {
+    perror("mmap");
+
+    return NULL;
+}
+
+close(fd);
+</code></pre>
+<h2 id="close"><a class="header" href="#close">Close</a></h2>
+<pre><code class="language-c">int r = munmap(p, sizeof(*p));
+
+if (r == -1) {
+    perror("munmap");
+    exit(errno);
+}
+</code></pre>
+<h2 id="destroy"><a class="header" href="#destroy">Destroy</a></h2>
+<pre><code class="language-c">shm_unlink(name);
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="web-security.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="programming.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="recon.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="semaphores.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -178,11 +228,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="web-security.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="programming.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="recon.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="semaphores.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

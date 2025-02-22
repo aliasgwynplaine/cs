@@ -154,14 +154,14 @@
                     <main>
                         <h1 id="mounting"><a class="header" href="#mounting">Mounting</a></h1>
 <h2 id="img"><a class="header" href="#img">.img</a></h2>
-<pre><code class="language-bash">mount -o loop &lt;file.img&gt; &lt;mntpoints&gt;
+<pre><code class="language-bash">mount -o loop $fileimg $mntpoint
 </code></pre>
 <h2 id="dev"><a class="header" href="#dev">/dev/*</a></h2>
 <p>You can use <code>fdisk -l</code> to check the partition type</p>
-<pre><code class="language-bash">mount -t &lt;type&gt; /dev/&lt;sd&gt;  &lt;targetfolder&gt;
+<pre><code class="language-bash">mount -t $type /dev/$sd  $targetfolder
 </code></pre>
 <h2 id="umouting"><a class="header" href="#umouting">umouting</a></h2>
-<pre><code class="language-bash">umount &lt;mntpoint&gt;
+<pre><code class="language-bash">umount $mntpoint
 </code></pre>
 
                     </main>
