@@ -1,4 +1,4 @@
-# Share memory
+# Shared memory
 
 ## Creation
 ```c
