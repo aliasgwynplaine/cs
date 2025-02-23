@@ -155,13 +155,19 @@
                         <h1 id="semaphores"><a class="header" href="#semaphores">Semaphores</a></h1>
 <h2 id="creation"><a class="header" href="#creation">Creation</a></h2>
 <pre><code class="language-c">sem_t sem;
-sem_init(&amp;sem, 1, 1);
+sem_init(&amp;sem, 1, v);
 </code></pre>
 <h2 id="waiting"><a class="header" href="#waiting">Waiting</a></h2>
 <pre><code class="language-c">sem_wait(&amp;sem);
 </code></pre>
 <h2 id="posting"><a class="header" href="#posting">Posting</a></h2>
 <pre><code class="language-c">sem_post(&amp;sem);
+</code></pre>
+<h2 id="closing"><a class="header" href="#closing">Closing</a></h2>
+<pre><code class="language-c">sem_close(&amp;sem)
+</code></pre>
+<h2 id="destroy"><a class="header" href="#destroy">Destroy</a></h2>
+<pre><code class="language-c">sem_destroy(name);
 </code></pre>
 
                     </main>
