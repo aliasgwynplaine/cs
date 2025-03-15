@@ -183,12 +183,18 @@ MODULE_PARM_DESC(mystring, "A character string");
 MODULE_AUTHOR("author")
 MODULE_LICENCE("licence")
 </code></pre>
-<h2 id="register-and-unregister"><a class="header" href="#register-and-unregister">register and unregister</a></h2>
+<h2 id="register-and-unregister-char-devices"><a class="header" href="#register-and-unregister-char-devices">register and unregister char devices</a></h2>
 <pre><code class="language-c">
 int register_chrdev( unsigned char major, const char *name, 
                      struct file_operations *fops);
 
 void unregister_chrdev( unsigned int major, const char *name);
+
+</code></pre>
+<h2 id="register-and-unregister-sys-modules"><a class="header" href="#register-and-unregister-sys-modules">register and unregister sys modules</a></h2>
+<p><a href="https://docs.kernel.org/core-api/kobject.html#initialization-of-kobjects">source</a></p>
+<pre><code class="language-c">struct kobject *kobject_create_and_add(const char *name, struct kobject *parent);
+
 
 </code></pre>
 

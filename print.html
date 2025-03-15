@@ -504,11 +504,24 @@ function ctrl_c () {
     exit
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="post-exploitation"><a class="header" href="#post-exploitation">Post-Exploitation</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="openssl"><a class="header" href="#openssl">OpenSSL</a></h1>
 <h2 id="x509"><a class="header" href="#x509">x509</a></h2>
 <h2 id="certificates"><a class="header" href="#certificates">Certificates</a></h2>
 <h2 id="certificate-requests"><a class="header" href="#certificate-requests">Certificate requests</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="post-exploitation"><a class="header" href="#post-exploitation">Post-Exploitation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gdb"><a class="header" href="#gdb">gdb</a></h1>
+<h2 id="registers"><a class="header" href="#registers">registers</a></h2>
+<pre><code>info all-registers
+</code></pre>
+<h2 id="functions"><a class="header" href="#functions">functions</a></h2>
+<pre><code>info functions
+</code></pre>
+<h2 id="printing-structs"><a class="header" href="#printing-structs">printing structs</a></h2>
+<pre><code>print $structvar
+</code></pre>
+<h2 id="modifying-variables"><a class="header" href="#modifying-variables">modifying variables</a></h2>
+<pre><code>set variable
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linux-kernel"><a class="header" href="#linux-kernel">Linux Kernel</a></h1>
 <h2 id="getting-the-sources"><a class="header" href="#getting-the-sources">Getting the sources</a></h2>
 <p>https://cdn.kernel.org</p>
@@ -615,12 +628,18 @@ MODULE_PARM_DESC(mystring, "A character string");
 MODULE_AUTHOR("author")
 MODULE_LICENCE("licence")
 </code></pre>
-<h2 id="register-and-unregister"><a class="header" href="#register-and-unregister">register and unregister</a></h2>
+<h2 id="register-and-unregister-char-devices"><a class="header" href="#register-and-unregister-char-devices">register and unregister char devices</a></h2>
 <pre><code class="language-c">
 int register_chrdev( unsigned char major, const char *name, 
                      struct file_operations *fops);
 
 void unregister_chrdev( unsigned int major, const char *name);
+
+</code></pre>
+<h2 id="register-and-unregister-sys-modules"><a class="header" href="#register-and-unregister-sys-modules">register and unregister sys modules</a></h2>
+<p><a href="https://docs.kernel.org/core-api/kobject.html#initialization-of-kobjects">source</a></p>
+<pre><code class="language-c">struct kobject *kobject_create_and_add(const char *name, struct kobject *parent);
+
 
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="compressing--estracting"><a class="header" href="#compressing--estracting">Compressing &amp; estracting</a></h1>
