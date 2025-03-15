@@ -37,7 +37,7 @@ MODULE_LICENCE("licence")
 ```
 
 
-## register and unregister
+## register and unregister char devices
 
 ```c
 
@@ -49,3 +49,11 @@ void unregister_chrdev( unsigned int major, const char *name);
 ```
 
 
+## register and unregister sys modules
+[source](https://docs.kernel.org/core-api/kobject.html#initialization-of-kobjects)
+
+```c
+struct kobject *kobject_create_and_add(const char *name, struct kobject *parent);
+
+
+```
