@@ -14,6 +14,8 @@
     - [NetCat](./netcat.md)
     - [Port Forwarding](./port-forwarding.md)
     - [SSH](./ssh.md)
+    - [firewall stuff](firewall.md)
+        - [nftables](nftables.md)
 - [Programming](./programming.md)
     - [share memory](./shared-memory.md)
     - [semaphores](./semaphores.md)
@@ -32,6 +34,7 @@
     - [Formatting](formatting.md)
     - [Paritions](partitions.md)
 - [containers & vms](./containers-vms.md)
-    -[podman](./podman.md)
+    - [podman](./podman.md)
     - [qemu](qemu.md)
+    - [lxc](lxc.md)
 

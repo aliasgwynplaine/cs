@@ -1,0 +1,6 @@
+# Partitions
+
+## fdisk
+```
+
+```
