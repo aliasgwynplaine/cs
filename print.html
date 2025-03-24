@@ -245,6 +245,16 @@ nc -lvp $to &lt; /tmp/f | nc localhost $from &gt; /tmp/f
 <h2 id="dynamic-port-forwarding"><a class="header" href="#dynamic-port-forwarding">Dynamic port forwarding</a></h2>
 <pre><code class="language-bash">ssh -D $lport $user@$server
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="firewall-stuff"><a class="header" href="#firewall-stuff">firewall stuff</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="nftables"><a class="header" href="#nftables">nftables</a></h1>
+<p>nft add table inet filter_table
+nft add chain inet filter_table filter_chain '{ type filter hook input priority filter; policy drop; }'
+nft add rule inet filter_table filter_chain tcp dport 22 accept</p>
+<h1 id="test"><a class="header" href="#test">test</a></h1>
+<p>nc -lvp
+nc -lvp 80
+nc -lvp 80
+nc -lvp 12345</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="programming"><a class="header" href="#programming">Programming</a></h1>
 <p>Remember your <a href="https://gist.github.com/aliasgwynplaine">gists</a></p>
 <h2 id="c"><a class="header" href="#c">C</a></h2>
@@ -675,13 +685,66 @@ void unregister_chrdev( unsigned int major, const char *name);
 <pre><code class="language-bash">fdisk
 </code></pre>
 <h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
-<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="containers--vms"><a class="header" href="#containers--vms">containers &amp; vms</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="partitions"><a class="header" href="#partitions">Partitions</a></h1>
+<h2 id="fdisk"><a class="header" href="#fdisk">fdisk</a></h2>
+<pre><code>
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="containers--vms"><a class="header" href="#containers--vms">containers &amp; vms</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="podman"><a class="header" href="#podman">podman</a></h1>
+<p>The commands used in podman can also be used in docker. In fact, you could
+make an <code>alias docker=podman</code> and you won't have big problems.</p>
+<h2 id="listing"><a class="header" href="#listing">Listing</a></h2>
+<p>List all containers</p>
+<pre><code class="language-bash">podman ps -a 
+</code></pre>
+<p>List images</p>
+<pre><code class="language-bash">podman image list
+</code></pre>
+<h2 id="getting-an-image"><a class="header" href="#getting-an-image">getting an image</a></h2>
+<pre><code class="language-bash">podman pull $imagename
+</code></pre>
+<h2 id="creating-an-interactive-container"><a class="header" href="#creating-an-interactive-container">Creating an interactive container</a></h2>
+<pre><code class="language-bash">podman create -ti --name $name $image
+</code></pre>
+<h2 id="starting-the-container"><a class="header" href="#starting-the-container">Starting the container</a></h2>
+<pre><code class="language-bash">podman start $containerid
+</code></pre>
+<p>Attaching and setting interactive mode on start</p>
+<pre><code class="language-bash">podman start $containerid -ai
+</code></pre>
+<h2 id="attaching-a-container"><a class="header" href="#attaching-a-container">Attaching a container</a></h2>
+<pre><code class="language-bash">podman attach $containername
+</code></pre>
+<p>detaching can be made with the sequence <code>&lt;Ctrl-p&gt; &lt;Ctrl-q&gt;</code></p>
+<h2 id="stopping-the-container"><a class="header" href="#stopping-the-container">Stopping the container</a></h2>
+<pre><code class="language-bash">podman stop $containername
+</code></pre>
+<p>This could take a while. You can set a timeout with <code>-t</code></p>
+<h2 id="getting-information-of-the-imagecontainer"><a class="header" href="#getting-information-of-the-imagecontainer">Getting information of the image/container</a></h2>
+<pre><code class="language-bash">podman inspect $name
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
 <h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
 <pre><code class="language-bash">qemu-img create -f vmdk $superdiskimg $size
 </code></pre>
 <h2 id="qemu-with-nat"><a class="header" href="#qemu-with-nat">qemu with NAT</a></h2>
 <pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom $isopath $diskimg
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linux-containers"><a class="header" href="#linux-containers">Linux Containers</a></h1>
+<h2 id="listing-the-container"><a class="header" href="#listing-the-container">Listing the container</a></h2>
+<pre><code class="language-c">lxc-ls
+</code></pre>
+<h2 id="creating-a-container"><a class="header" href="#creating-a-container">Creating a container</a></h2>
+<pre><code class="language-c">lxc-create -n $name -t $template
+</code></pre>
+<h2 id="starting-a-container"><a class="header" href="#starting-a-container">starting a container</a></h2>
+<pre><code class="language-c">lxc-start -n $name
+</code></pre>
+<h2 id="clonning-a-container"><a class="header" href="#clonning-a-container">Clonning a container</a></h2>
+<pre><code class="language-c">lxc-copy -n $name - $template
+</code></pre>
+<h2 id="destroying-a-container"><a class="header" href="#destroying-a-container">destroying a container</a></h2>
+<pre><code class="language-c">lxc-destroy -n $name
 </code></pre>
 
                     </main>

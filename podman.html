@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>SSH - cheat-sheet</title>
+        <title>podman - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -152,33 +152,49 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ssh"><a class="header" href="#ssh">SSH</a></h1>
-<h2 id="local-port-forwarding"><a class="header" href="#local-port-forwarding">Local port forwarding</a></h2>
-<pre><code class="language-bash">ssh -L $lport:$dhost:$dport $user@$sshserver
-
+                        <h1 id="podman"><a class="header" href="#podman">podman</a></h1>
+<p>The commands used in podman can also be used in docker. In fact, you could
+make an <code>alias docker=podman</code> and you won't have big problems.</p>
+<h2 id="listing"><a class="header" href="#listing">Listing</a></h2>
+<p>List all containers</p>
+<pre><code class="language-bash">podman ps -a 
 </code></pre>
-<h2 id="remote-port-forwarding"><a class="header" href="#remote-port-forwarding">Remote port forwarding</a></h2>
-<pre><code class="language-bash">ssh -R $rport:$dhost:$lport $user@$sshserver
-
+<p>List images</p>
+<pre><code class="language-bash">podman image list
 </code></pre>
-<pre><code>B:1 -&gt; A:2 &lt;- C:3  &lt;---&gt; internet
+<h2 id="getting-an-image"><a class="header" href="#getting-an-image">getting an image</a></h2>
+<pre><code class="language-bash">podman pull $imagename
 </code></pre>
-<blockquote>
-<p>NOTE: this option can be useless if you have no root access to change the <code>sshd_config</code> file in the machine <code>A</code>, and restart the ssh service, since you need to set <code>GatewayPorts yes</code> in order to let others than the ssh server machine could access to <code>dhost</code>. However, there's a workaround: Remote Port Forwarding from <code>B:port1</code> to one remote server <code>A:port2</code> and then a Local Port Forwarding to the same <code>A:port2</code> machine using a local machine <code>C:port3</code> to which you have more access. You can know access to the service in <code>B:port1</code> using <code>C:port3</code>.</p>
-</blockquote>
-<h2 id="dynamic-port-forwarding"><a class="header" href="#dynamic-port-forwarding">Dynamic port forwarding</a></h2>
-<pre><code class="language-bash">ssh -D $lport $user@$server
+<h2 id="creating-an-interactive-container"><a class="header" href="#creating-an-interactive-container">Creating an interactive container</a></h2>
+<pre><code class="language-bash">podman create -ti --name $name $image
+</code></pre>
+<h2 id="starting-the-container"><a class="header" href="#starting-the-container">Starting the container</a></h2>
+<pre><code class="language-bash">podman start $containerid
+</code></pre>
+<p>Attaching and setting interactive mode on start</p>
+<pre><code class="language-bash">podman start $containerid -ai
+</code></pre>
+<h2 id="attaching-a-container"><a class="header" href="#attaching-a-container">Attaching a container</a></h2>
+<pre><code class="language-bash">podman attach $containername
+</code></pre>
+<p>detaching can be made with the sequence <code>&lt;Ctrl-p&gt; &lt;Ctrl-q&gt;</code></p>
+<h2 id="stopping-the-container"><a class="header" href="#stopping-the-container">Stopping the container</a></h2>
+<pre><code class="language-bash">podman stop $containername
+</code></pre>
+<p>This could take a while. You can set a timeout with <code>-t</code></p>
+<h2 id="getting-information-of-the-imagecontainer"><a class="header" href="#getting-information-of-the-imagecontainer">Getting information of the image/container</a></h2>
+<pre><code class="language-bash">podman inspect $name
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="port-forwarding.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="containers-vms.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="firewall.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="qemu.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -188,11 +204,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="port-forwarding.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="containers-vms.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="firewall.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="qemu.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
