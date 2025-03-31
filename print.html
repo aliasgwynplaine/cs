@@ -247,14 +247,16 @@ nc -lvp $to &lt; /tmp/f | nc localhost $from &gt; /tmp/f
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="firewall-stuff"><a class="header" href="#firewall-stuff">firewall stuff</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="nftables"><a class="header" href="#nftables">nftables</a></h1>
-<p>nft add table inet filter_table
+<pre><code class="language-c">nft add table inet filter_table
 nft add chain inet filter_table filter_chain '{ type filter hook input priority filter; policy drop; }'
-nft add rule inet filter_table filter_chain tcp dport 22 accept</p>
+nft add rule inet filter_table filter_chain tcp dport 22 accept
+</code></pre>
 <h1 id="test"><a class="header" href="#test">test</a></h1>
-<p>nc -lvp
+<pre><code class="language-c">nc -lvp
 nc -lvp 80
 nc -lvp 80
-nc -lvp 12345</p>
+nc -lvp 12345
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="programming"><a class="header" href="#programming">Programming</a></h1>
 <p>Remember your <a href="https://gist.github.com/aliasgwynplaine">gists</a></p>
 <h2 id="c"><a class="header" href="#c">C</a></h2>
@@ -689,6 +691,7 @@ void unregister_chrdev( unsigned int major, const char *name);
 <h2 id="fdisk"><a class="header" href="#fdisk">fdisk</a></h2>
 <pre><code>
 </code></pre>
+<h2 id="lvm"><a class="header" href="#lvm">lvm</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="containers--vms"><a class="header" href="#containers--vms">containers &amp; vms</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="podman"><a class="header" href="#podman">podman</a></h1>
 <p>The commands used in podman can also be used in docker. In fact, you could
@@ -732,7 +735,7 @@ make an <code>alias docker=podman</code> and you won't have big problems.</p>
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linux-containers"><a class="header" href="#linux-containers">Linux Containers</a></h1>
 <h2 id="listing-the-container"><a class="header" href="#listing-the-container">Listing the container</a></h2>
-<pre><code class="language-c">lxc-ls
+<pre><code class="language-c">lxc-ls -f
 </code></pre>
 <h2 id="creating-a-container"><a class="header" href="#creating-a-container">Creating a container</a></h2>
 <pre><code class="language-c">lxc-create -n $name -t $template
@@ -741,7 +744,7 @@ make an <code>alias docker=podman</code> and you won't have big problems.</p>
 <pre><code class="language-c">lxc-start -n $name
 </code></pre>
 <h2 id="clonning-a-container"><a class="header" href="#clonning-a-container">Clonning a container</a></h2>
-<pre><code class="language-c">lxc-copy -n $name - $template
+<pre><code class="language-c">lxc-copy -n $name -N $newname
 </code></pre>
 <h2 id="destroying-a-container"><a class="header" href="#destroying-a-container">destroying a container</a></h2>
 <pre><code class="language-c">lxc-destroy -n $name

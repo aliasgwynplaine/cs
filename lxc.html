@@ -154,7 +154,7 @@
                     <main>
                         <h1 id="linux-containers"><a class="header" href="#linux-containers">Linux Containers</a></h1>
 <h2 id="listing-the-container"><a class="header" href="#listing-the-container">Listing the container</a></h2>
-<pre><code class="language-c">lxc-ls
+<pre><code class="language-c">lxc-ls -f
 </code></pre>
 <h2 id="creating-a-container"><a class="header" href="#creating-a-container">Creating a container</a></h2>
 <pre><code class="language-c">lxc-create -n $name -t $template
@@ -163,7 +163,7 @@
 <pre><code class="language-c">lxc-start -n $name
 </code></pre>
 <h2 id="clonning-a-container"><a class="header" href="#clonning-a-container">Clonning a container</a></h2>
-<pre><code class="language-c">lxc-copy -n $name - $template
+<pre><code class="language-c">lxc-copy -n $name -N $newname
 </code></pre>
 <h2 id="destroying-a-container"><a class="header" href="#destroying-a-container">destroying a container</a></h2>
 <pre><code class="language-c">lxc-destroy -n $name

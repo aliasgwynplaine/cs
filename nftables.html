@@ -153,14 +153,16 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="nftables"><a class="header" href="#nftables">nftables</a></h1>
-<p>nft add table inet filter_table
+<pre><code class="language-c">nft add table inet filter_table
 nft add chain inet filter_table filter_chain '{ type filter hook input priority filter; policy drop; }'
-nft add rule inet filter_table filter_chain tcp dport 22 accept</p>
+nft add rule inet filter_table filter_chain tcp dport 22 accept
+</code></pre>
 <h1 id="test"><a class="header" href="#test">test</a></h1>
-<p>nc -lvp
+<pre><code class="language-c">nc -lvp
 nc -lvp 80
 nc -lvp 80
-nc -lvp 12345</p>
+nc -lvp 12345
+</code></pre>
 
                     </main>
 
