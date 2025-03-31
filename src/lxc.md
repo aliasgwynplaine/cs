@@ -2,7 +2,7 @@
 
 ## Listing the container
 ```c
-lxc-ls
+lxc-ls -f
 ```
 
 ## Creating a container
@@ -17,7 +17,7 @@ lxc-start -n $name
 
 ## Clonning a container
 ```c
-lxc-copy -n $name - $template
+lxc-copy -n $name -N $newname
 ```
 
 ## destroying a container
