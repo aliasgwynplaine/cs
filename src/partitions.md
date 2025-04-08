@@ -1,0 +1,8 @@
+# Partitions
+
+## fdisk
+```
+
+```
+
+## lvm
