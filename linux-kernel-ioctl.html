@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>qemu - cheat-sheet</title>
+        <title>ioctl - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -155,23 +155,31 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
-<h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
-<pre><code class="language-bash">qemu-img create -f vmdk $superdiskimg $size
-</code></pre>
-<h2 id="qemu-with-nat"><a class="header" href="#qemu-with-nat">qemu with NAT</a></h2>
-<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom $isopath $diskimg
+                        <h1 id="ioctl"><a class="header" href="#ioctl">ioctl</a></h1>
+<h2 id="macros-to-define-the-commands"><a class="header" href="#macros-to-define-the-commands">macros to define the commands</a></h2>
+<ul>
+<li><code>_IO(type, nr)</code>: request takes no argument;</li>
+<li><code>_IOR(type, nr, datatype)</code>: request reads data from the kernel;</li>
+<li><code>_IOW(type, nr, datatype)</code>: request writes data to the kernel;</li>
+<li><code>_IOWR(type, nr, datatype)</code>: request reads data from and writes data to the kernel.</li>
+</ul>
+<h3 id="some-examples"><a class="header" href="#some-examples">some examples</a></h3>
+<pre><code class="language-c">#define TM_MAGIC	'N'
+#define TM_GET		_IOR(TM_MAGIC, 20, struct task_sample_usr)
+#define TM_STOP		_IO(TM_MAGIC, 21)
+#define TM_START	_IO(TM_MAGIC, 22)
+#define TM_PID		_IOWR(TM_MAGIC, 23, __s64)
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="podman.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="linux-kernel-mod-api.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="lxc.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="kmutex.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -181,11 +189,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="podman.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="linux-kernel-mod-api.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="lxc.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="kmutex.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

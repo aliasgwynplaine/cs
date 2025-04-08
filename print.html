@@ -32,10 +32,11 @@
         <!-- Custom theme stylesheets -->
 
 
-        <!-- Provide site root to javascript -->
+        <!-- Provide site root and default themes to javascript -->
         <script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -45,8 +46,8 @@
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
-                var theme = localStorage.getItem('mdbook-theme');
-                var sidebar = localStorage.getItem('mdbook-sidebar');
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
 
                 if (theme.startsWith('"') && theme.endsWith('"')) {
                     localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
@@ -60,7 +61,8 @@
 
         <!-- Set the theme before any content is loaded, prevents flash -->
         <script>
-            var theme;
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             const html = document.documentElement;
@@ -73,8 +75,8 @@
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var sidebar = null;
-            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
@@ -110,6 +112,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
@@ -578,6 +581,55 @@ function ctrl_c () {
 <li><code>pr_info()</code></li>
 <li><code>pr_err()</code></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kernel-debugging"><a class="header" href="#kernel-debugging">Kernel debugging</a></h1>
+<h2 id="using-qemu"><a class="header" href="#using-qemu">using qemu</a></h2>
+<p>The next "qemu script" example was shamelessly plundered from <a href="https://teaching.os.rwth-aachen.de/LKP/02_first-steps.html">this course</a>. Keep an eye in the part that says <code>-serial ...</code></p>
+<pre><code class="language-bash">#! /bin/bash
+
+# Fix the paths if necessary
+HDA="-drive file=lkp-arch-old.img,format=raw"
+HDB="-drive file=myhome.img,format=raw"
+SHARED="./share"
+KERNEL=kgdbImage
+
+if [ -z ${KDB} ]; then
+    CMDLINE='root=/dev/sda1 rw console=ttyS0 kgdboc=ttyS1'
+else
+    CMDLINE='root=/dev/sda1 rw console=ttyS0 kgdboc=ttyS1 kgdbwait'
+fi
+
+FLAGS="--enable-kvm "
+VIRTFS+=" --virtfs local,path=${SHARED},mount_tag=share,security_model=passthrough,id=share "
+
+exec qemu-system-x86_64 ${FLAGS} \
+     ${HDA} ${HDB} \
+     ${VIRTFS} \
+     -net user -net nic \
+     -serial mon:stdio -serial tcp::1234,server,nowait \
+     -boot c -m 1G \
+     -kernel "${KERNEL}" \
+     -append "${CMDLINE}" # -nographic
+#     -initrd "./myinitramfs.cpio.gz"
+</code></pre>
+<p>Once you have your qemu vm running, you need to execute the vmlinux file with gdb.
+In order to "connect" to the serial port, you use <code>target remote ...</code></p>
+<pre><code class="language-bash">target remote udp:host:port
+target remote udp:[host]:port
+target remote udp4:host:port
+target remote udp6:[host]:port
+</code></pre>
+<p>After this, you could use <a href="./gdb.html">gdb</a> as usual</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="patching"><a class="header" href="#patching">patching</a></h1>
+<h2 id="generating-patches"><a class="header" href="#generating-patches">Generating patches</a></h2>
+<p>To create patch for single file your command may look like</p>
+<pre><code class="language-bash">diff -Naru file.old file.new &gt; file.patch
+</code></pre>
+<p>To create patch for whole directory:</p>
+<pre><code class="language-bash">diff -crB dir_original dir_updated &gt; dfile.patch
+</code></pre>
+<h2 id="applying-patches"><a class="header" href="#applying-patches">Applying patches</a></h2>
+<pre><code class="language-bash">patch -p1 --dry-run &lt; dfile.patch
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linux-kernel-modules"><a class="header" href="#linux-kernel-modules">Linux Kernel Modules</a></h1>
 <h2 id="list-of-modules"><a class="header" href="#list-of-modules">List of modules</a></h2>
 <pre><code class="language-c">lsmod 
@@ -669,6 +721,22 @@ void unregister_chrdev( unsigned int major, const char *name);
 
 
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ioctl"><a class="header" href="#ioctl">ioctl</a></h1>
+<h2 id="macros-to-define-the-commands"><a class="header" href="#macros-to-define-the-commands">macros to define the commands</a></h2>
+<ul>
+<li><code>_IO(type, nr)</code>: request takes no argument;</li>
+<li><code>_IOR(type, nr, datatype)</code>: request reads data from the kernel;</li>
+<li><code>_IOW(type, nr, datatype)</code>: request writes data to the kernel;</li>
+<li><code>_IOWR(type, nr, datatype)</code>: request reads data from and writes data to the kernel.</li>
+</ul>
+<h3 id="some-examples"><a class="header" href="#some-examples">some examples</a></h3>
+<pre><code class="language-c">#define TM_MAGIC	'N'
+#define TM_GET		_IOR(TM_MAGIC, 20, struct task_sample_usr)
+#define TM_STOP		_IO(TM_MAGIC, 21)
+#define TM_START	_IO(TM_MAGIC, 22)
+#define TM_PID		_IOWR(TM_MAGIC, 23, __s64)
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kmutex"><a class="header" href="#kmutex">kmutex</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="compressing--estracting"><a class="header" href="#compressing--estracting">Compressing &amp; estracting</a></h1>
 <h2 id="tgz"><a class="header" href="#tgz">.tgz</a></h2>
 <pre><code class="language-bash">tar zxvf &lt;file-tgz&gt;

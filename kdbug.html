@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>qemu - cheat-sheet</title>
+        <title>debugging - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -155,23 +155,54 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
-<h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
-<pre><code class="language-bash">qemu-img create -f vmdk $superdiskimg $size
+                        <h1 id="kernel-debugging"><a class="header" href="#kernel-debugging">Kernel debugging</a></h1>
+<h2 id="using-qemu"><a class="header" href="#using-qemu">using qemu</a></h2>
+<p>The next "qemu script" example was shamelessly plundered from <a href="https://teaching.os.rwth-aachen.de/LKP/02_first-steps.html">this course</a>. Keep an eye in the part that says <code>-serial ...</code></p>
+<pre><code class="language-bash">#! /bin/bash
+
+# Fix the paths if necessary
+HDA="-drive file=lkp-arch-old.img,format=raw"
+HDB="-drive file=myhome.img,format=raw"
+SHARED="./share"
+KERNEL=kgdbImage
+
+if [ -z ${KDB} ]; then
+    CMDLINE='root=/dev/sda1 rw console=ttyS0 kgdboc=ttyS1'
+else
+    CMDLINE='root=/dev/sda1 rw console=ttyS0 kgdboc=ttyS1 kgdbwait'
+fi
+
+FLAGS="--enable-kvm "
+VIRTFS+=" --virtfs local,path=${SHARED},mount_tag=share,security_model=passthrough,id=share "
+
+exec qemu-system-x86_64 ${FLAGS} \
+     ${HDA} ${HDB} \
+     ${VIRTFS} \
+     -net user -net nic \
+     -serial mon:stdio -serial tcp::1234,server,nowait \
+     -boot c -m 1G \
+     -kernel "${KERNEL}" \
+     -append "${CMDLINE}" # -nographic
+#     -initrd "./myinitramfs.cpio.gz"
 </code></pre>
-<h2 id="qemu-with-nat"><a class="header" href="#qemu-with-nat">qemu with NAT</a></h2>
-<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom $isopath $diskimg
+<p>Once you have your qemu vm running, you need to execute the vmlinux file with gdb.
+In order to "connect" to the serial port, you use <code>target remote ...</code></p>
+<pre><code class="language-bash">target remote udp:host:port
+target remote udp:[host]:port
+target remote udp4:host:port
+target remote udp6:[host]:port
 </code></pre>
+<p>After this, you could use <a href="./gdb.html">gdb</a> as usual</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="podman.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="linux-kernel.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="lxc.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="patching.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -181,11 +212,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="podman.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="linux-kernel.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="lxc.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="patching.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

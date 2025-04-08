@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>qemu - cheat-sheet</title>
+        <title>patching - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -155,23 +155,27 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="qemu"><a class="header" href="#qemu">qemu</a></h1>
-<h2 id="qemu-img"><a class="header" href="#qemu-img">qemu-img</a></h2>
-<pre><code class="language-bash">qemu-img create -f vmdk $superdiskimg $size
+                        <h1 id="patching"><a class="header" href="#patching">patching</a></h1>
+<h2 id="generating-patches"><a class="header" href="#generating-patches">Generating patches</a></h2>
+<p>To create patch for single file your command may look like</p>
+<pre><code class="language-bash">diff -Naru file.old file.new &gt; file.patch
 </code></pre>
-<h2 id="qemu-with-nat"><a class="header" href="#qemu-with-nat">qemu with NAT</a></h2>
-<pre><code class="language-bash">qemu-system-x86_64 -net tap -net nic -boot d -m 2G -cdrom $isopath $diskimg
+<p>To create patch for whole directory:</p>
+<pre><code class="language-bash">diff -crB dir_original dir_updated &gt; dfile.patch
+</code></pre>
+<h2 id="applying-patches"><a class="header" href="#applying-patches">Applying patches</a></h2>
+<pre><code class="language-bash">patch -p1 --dry-run &lt; dfile.patch
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="podman.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="kdbug.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="lxc.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="linux-kernel-modules.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -181,11 +185,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="podman.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="kdbug.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="lxc.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="linux-kernel-modules.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
