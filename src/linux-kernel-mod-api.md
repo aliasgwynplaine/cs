@@ -54,6 +54,4 @@ void unregister_chrdev( unsigned int major, const char *name);
 
 ```c
 struct kobject *kobject_create_and_add(const char *name, struct kobject *parent);
-
-
 ```

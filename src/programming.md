@@ -1,4 +1,6 @@
 # Programming
+This is just high level programming. For kernel programming go to 
+[Linux kernel](./linux-kernel.md).
 
 Remember your [gists](https://gist.github.com/aliasgwynplaine)
 

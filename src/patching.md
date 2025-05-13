@@ -9,11 +9,11 @@ diff -Naru file.old file.new > file.patch
 
 To create patch for whole directory:
 ```bash
-diff -crB dir_original dir_updated > dfile.patch
+diff -crB dir_old dir_new > dfile.patch
 ```
 
 ## Applying patches
 
 ```bash
-patch -p1 --dry-run < dfile.patch
+patch -p1 < difffile.patch
 ```
