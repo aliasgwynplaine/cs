@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Extracting - cheat-sheet</title>
+        <title>procfs - cheat-sheet</title>
 
 
         <!-- Custom HTML head -->
@@ -155,33 +155,22 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="compressing--estracting"><a class="header" href="#compressing--estracting">Compressing &amp; estracting</a></h1>
-<h2 id="tgz"><a class="header" href="#tgz">.tgz</a></h2>
-<pre><code class="language-bash">tar zxvf &lt;file-tgz&gt;
-</code></pre>
-<pre><code class="language-bash">gunzip -c &lt;file-tgz&gt; | tar xvf -
-</code></pre>
-<h2 id="tgbz2"><a class="header" href="#tgbz2">.tg.bz2</a></h2>
-<pre><code class="language-bash">tar xvjf &lt;file-tar.bz2&gt;
-</code></pre>
-<h2 id="xz"><a class="header" href="#xz">.xz</a></h2>
-<pre><code class="language-bash">tar xf &lt;file-xz&gt;
-</code></pre>
-<h2 id="zip"><a class="header" href="#zip">.zip</a></h2>
-<pre><code>zip -r &lt;filename-zip&gt; &lt;dirname&gt;
-</code></pre>
-<pre><code class="language-bash">unzip &lt;file-zip&gt;
+                        <h1 id="proc-file-system"><a class="header" href="#proc-file-system">proc file system</a></h1>
+<h2 id="dummy-operations"><a class="header" href="#dummy-operations">dummy operations</a></h2>
+<pre><code class="language-c">int simple_open(struct inode *inode, struct file *file);
+loff_t noop_llseek(struct file *file, loff_t offset, int whence);
+
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="kmutex.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="linux-kernel-ioctl.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="mounting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="kmutex.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -191,11 +180,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="kmutex.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="linux-kernel-ioctl.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="mounting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="kmutex.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

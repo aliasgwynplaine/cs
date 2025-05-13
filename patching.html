@@ -161,10 +161,10 @@
 <pre><code class="language-bash">diff -Naru file.old file.new &gt; file.patch
 </code></pre>
 <p>To create patch for whole directory:</p>
-<pre><code class="language-bash">diff -crB dir_original dir_updated &gt; dfile.patch
+<pre><code class="language-bash">diff -crB dir_old dir_new &gt; dfile.patch
 </code></pre>
 <h2 id="applying-patches"><a class="header" href="#applying-patches">Applying patches</a></h2>
-<pre><code class="language-bash">patch -p1 --dry-run &lt; dfile.patch
+<pre><code class="language-bash">patch -p1 &lt; difffile.patch
 </code></pre>
 
                     </main>

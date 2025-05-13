@@ -201,6 +201,14 @@
 <h2 id="dig"><a class="header" href="#dig">dig</a></h2>
 <pre><code class="language-bash">dig axfr &lt;domain&gt; @&lt;dns-server&gt;
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="nis"><a class="header" href="#nis">NIS</a></h1>
+<pre><code class="language-bash">ypdomainname
+</code></pre>
+<pre><code class="language-bash">ypcat passwd.byname
+ypcat shadow.byname
+ypcat hosts.byname
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="post-exploitation"><a class="header" href="#post-exploitation">Post-Exploitation</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dns-notes"><a class="header" href="#dns-notes">DNS notes</a></h1>
 <ul>
@@ -276,6 +284,8 @@ nc -lvp 80
 nc -lvp 12345
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="programming"><a class="header" href="#programming">Programming</a></h1>
+<p>This is just high level programming. For kernel programming go to
+<a href="./linux-kernel.html">Linux kernel</a>.</p>
 <p>Remember your <a href="https://gist.github.com/aliasgwynplaine">gists</a></p>
 <h2 id="c"><a class="header" href="#c">C</a></h2>
 <p>Signatures</p>
@@ -534,7 +544,6 @@ function ctrl_c () {
     exit
 }
 </code></pre>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="post-exploitation"><a class="header" href="#post-exploitation">Post-Exploitation</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="openssl"><a class="header" href="#openssl">OpenSSL</a></h1>
 <h2 id="x509"><a class="header" href="#x509">x509</a></h2>
 <h2 id="certificates"><a class="header" href="#certificates">Certificates</a></h2>
@@ -625,10 +634,10 @@ target remote udp6:[host]:port
 <pre><code class="language-bash">diff -Naru file.old file.new &gt; file.patch
 </code></pre>
 <p>To create patch for whole directory:</p>
-<pre><code class="language-bash">diff -crB dir_original dir_updated &gt; dfile.patch
+<pre><code class="language-bash">diff -crB dir_old dir_new &gt; dfile.patch
 </code></pre>
 <h2 id="applying-patches"><a class="header" href="#applying-patches">Applying patches</a></h2>
-<pre><code class="language-bash">patch -p1 --dry-run &lt; dfile.patch
+<pre><code class="language-bash">patch -p1 &lt; difffile.patch
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linux-kernel-modules"><a class="header" href="#linux-kernel-modules">Linux Kernel Modules</a></h1>
 <h2 id="list-of-modules"><a class="header" href="#list-of-modules">List of modules</a></h2>
@@ -718,8 +727,6 @@ void unregister_chrdev( unsigned int major, const char *name);
 <h2 id="register-and-unregister-sys-modules"><a class="header" href="#register-and-unregister-sys-modules">register and unregister sys modules</a></h2>
 <p><a href="https://docs.kernel.org/core-api/kobject.html#initialization-of-kobjects">source</a></p>
 <pre><code class="language-c">struct kobject *kobject_create_and_add(const char *name, struct kobject *parent);
-
-
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ioctl"><a class="header" href="#ioctl">ioctl</a></h1>
 <h2 id="macros-to-define-the-commands"><a class="header" href="#macros-to-define-the-commands">macros to define the commands</a></h2>
@@ -736,23 +743,37 @@ void unregister_chrdev( unsigned int major, const char *name);
 #define TM_START	_IO(TM_MAGIC, 22)
 #define TM_PID		_IOWR(TM_MAGIC, 23, __s64)
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="proc-file-system"><a class="header" href="#proc-file-system">proc file system</a></h1>
+<h2 id="dummy-operations"><a class="header" href="#dummy-operations">dummy operations</a></h2>
+<pre><code class="language-c">int simple_open(struct inode *inode, struct file *file);
+loff_t noop_llseek(struct file *file, loff_t offset, int whence);
+
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="kmutex"><a class="header" href="#kmutex">kmutex</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="compressing--estracting"><a class="header" href="#compressing--estracting">Compressing &amp; estracting</a></h1>
-<h2 id="tgz"><a class="header" href="#tgz">.tgz</a></h2>
-<pre><code class="language-bash">tar zxvf &lt;file-tgz&gt;
+<h2 id="extracting"><a class="header" href="#extracting">Extracting</a></h2>
+<h3 id="tgz"><a class="header" href="#tgz">.tgz</a></h3>
+<pre><code class="language-bash">tar zxvf file.tgz
 </code></pre>
-<pre><code class="language-bash">gunzip -c &lt;file-tgz&gt; | tar xvf -
+<pre><code class="language-bash">gunzip -c file.tgz | tar xvf -
 </code></pre>
-<h2 id="tgbz2"><a class="header" href="#tgbz2">.tg.bz2</a></h2>
-<pre><code class="language-bash">tar xvjf &lt;file-tar.bz2&gt;
+<h3 id="tgbz2"><a class="header" href="#tgbz2">.tg.bz2</a></h3>
+<pre><code class="language-bash">tar xvjf file.tg.bz2
 </code></pre>
-<h2 id="xz"><a class="header" href="#xz">.xz</a></h2>
-<pre><code class="language-bash">tar xf &lt;file-xz&gt;
+<h3 id="tarxz"><a class="header" href="#tarxz">.tar.xz</a></h3>
+<pre><code class="language-bash">tar xf file.tar.xz
 </code></pre>
-<h2 id="zip"><a class="header" href="#zip">.zip</a></h2>
-<pre><code>zip -r &lt;filename-zip&gt; &lt;dirname&gt;
+<h3 id="xz"><a class="header" href="#xz">.xz</a></h3>
+<pre><code class="language-bash">unxz file.xz
 </code></pre>
-<pre><code class="language-bash">unzip &lt;file-zip&gt;
+<pre><code class="language-bash">xz --decompress file.xz
+</code></pre>
+<h3 id="zip"><a class="header" href="#zip">.zip</a></h3>
+<pre><code class="language-bash">zip -r filename-zip dirname
+</code></pre>
+<h2 id="compressing"><a class="header" href="#compressing">Compressing</a></h2>
+<h3 id="zip-1"><a class="header" href="#zip-1">.zip</a></h3>
+<pre><code class="language-bash">unzip filezip
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mounting"><a class="header" href="#mounting">Mounting</a></h1>
 <h2 id="img"><a class="header" href="#img">.img</a></h2>
