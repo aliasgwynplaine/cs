@@ -31,13 +31,19 @@ xz --decompress file.xz
 
 ### .zip
 ```bash
-zip -r filename-zip dirname
+unzip filezip
 ```
-
 
 ## Compressing
 
 ### .zip
 ```bash
-unzip filezip
+zip -r filename-zip dirname
+```
+
+
+### 
+
+```bash
+tar cvf file.tgz list of files and folders/
 ```
