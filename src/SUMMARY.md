@@ -10,6 +10,8 @@
     - [shellwerkz](./shellwerkz.md)
     - [DNS Zone Transfer](./dns-zone-transfer.md)
     - [NIS](nis.md)
+- [Cloud]()
+    - [aws](aws.md)
 - [Post-Exploitation](./post-exploitation.md)
     - [draft-pe]()
 - [Networking](./networking.md)
@@ -45,4 +47,5 @@
     - [podman](./podman.md)
     - [qemu](qemu.md)
     - [lxc](lxc.md)
+    - [virtualbox](./virtualbox.md)
 
