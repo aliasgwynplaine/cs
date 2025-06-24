@@ -42,6 +42,17 @@
         <script src="toc.js"></script>
     </head>
     <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
     <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
@@ -119,7 +130,7 @@
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>
@@ -208,6 +219,7 @@
 ypcat shadow.byname
 ypcat hosts.byname
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="aws"><a class="header" href="#aws">aws</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="post-exploitation"><a class="header" href="#post-exploitation">Post-Exploitation</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dns-notes"><a class="header" href="#dns-notes">DNS notes</a></h1>
@@ -769,11 +781,14 @@ loff_t noop_llseek(struct file *file, loff_t offset, int whence);
 <pre><code class="language-bash">xz --decompress file.xz
 </code></pre>
 <h3 id="zip"><a class="header" href="#zip">.zip</a></h3>
-<pre><code class="language-bash">zip -r filename-zip dirname
+<pre><code class="language-bash">unzip filezip
 </code></pre>
 <h2 id="compressing"><a class="header" href="#compressing">Compressing</a></h2>
 <h3 id="zip-1"><a class="header" href="#zip-1">.zip</a></h3>
-<pre><code class="language-bash">unzip filezip
+<pre><code class="language-bash">zip -r filename-zip dirname
+</code></pre>
+<h3 id=""><a class="header" href="#"></a></h3>
+<pre><code class="language-bash">tar cvf file.tgz list of files and folders/
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="mounting"><a class="header" href="#mounting">Mounting</a></h1>
 <h2 id="img"><a class="header" href="#img">.img</a></h2>
@@ -852,6 +867,10 @@ make an <code>alias docker=podman</code> and you won't have big problems.</p>
 </code></pre>
 <h2 id="destroying-a-container"><a class="header" href="#destroying-a-container">destroying a container</a></h2>
 <pre><code class="language-c">lxc-destroy -n $name
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="virtualbox"><a class="header" href="#virtualbox">virtualbox</a></h1>
+<h2 id="enable-nested-virtualisation"><a class="header" href="#enable-nested-virtualisation">enable nested virtualisation</a></h2>
+<pre><code class="language-bash">VBoxManage modifyvm $VirtualMachineName --nested-hw-virt on
 </code></pre>
 
                     </main>
